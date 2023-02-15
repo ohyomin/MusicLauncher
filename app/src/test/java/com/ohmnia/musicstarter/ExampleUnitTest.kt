@@ -1,4 +1,4 @@
-package com.carlinkit.musicstarter
+package com.ohmnia.musicstarter
 
 import org.junit.Test
 

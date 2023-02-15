@@ -1,4 +1,4 @@
-package com.carlinkit.musicstarter.service
+package com.ohmnia.musicstarter.service
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -10,7 +10,7 @@ import android.os.IBinder
 import android.os.Looper
 import android.util.Log
 import androidx.core.app.NotificationCompat
-import com.carlinkit.musicstarter.MusicLauncher
+import com.ohmnia.musicstarter.MusicLauncher
 
 class MyService : Service() {
 

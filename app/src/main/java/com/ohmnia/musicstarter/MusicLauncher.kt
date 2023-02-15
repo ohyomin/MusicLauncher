@@ -1,15 +1,16 @@
-package com.carlinkit.musicstarter
+package com.ohmnia.musicstarter
 
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.media.AudioManager
 import android.media.browse.MediaBrowser
+import android.media.session.MediaController
 import android.os.Bundle
-import android.os.Handler
 import android.os.SystemClock
 import android.util.Log
 import android.view.KeyEvent
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlin.concurrent.thread
 
@@ -29,7 +30,8 @@ class MusicLauncher(private val context: Context) {
         }
     }
 
-    fun play(componentName: ComponentName? = getComponent(), callback: () -> Unit = {}) {
+    fun play(componentName: ComponentName? = getComponent(),
+             callback: () -> Unit = {}) {
         if (componentName == null) return
 
         mediaBrowser?.disconnect()
@@ -40,9 +42,13 @@ class MusicLauncher(private val context: Context) {
                 override fun onConnected() {
                     super.onConnected()
                     Log.i(TAG, "onConnected ${componentName.packageName}")
+                    val controller = MediaController(context, mediaBrowser!!.sessionToken)
+                    controller.transportControls.play()
+
                     simulateMediaButton(componentName.packageName)
 
-                    callback()
+                Toast.makeText(context, "음악 시작", Toast.LENGTH_SHORT).show()
+                callback()
                 }
 
                 override fun onConnectionFailed() {
@@ -55,6 +61,7 @@ class MusicLauncher(private val context: Context) {
                         sendMediaKeyEvent()
                         callback()
                     }
+                    Toast.makeText(context, "음악 시작", Toast.LENGTH_SHORT).show()
                 }
             },
             Bundle()

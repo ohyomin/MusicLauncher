@@ -1,4 +1,4 @@
-package com.carlinkit.musicstarter
+package com.ohmnia.musicstarter
 
 import android.content.*
 import android.content.pm.PackageManager
@@ -13,7 +13,6 @@ import android.os.PowerManager
 import android.provider.Settings
 import android.service.media.MediaBrowserService
 import android.util.Log
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -112,16 +111,18 @@ class MainActivity : AppCompatActivity() {
                 fun Context.getPackageInfo(): List<ResolveInfo> {
                     //val intent = Intent(Intent.ACTION_MEDIA_BUTTON)
                     val intent = Intent(MediaBrowserService.SERVICE_INTERFACE)
-                    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                        //packageManager.getPackageInfo(packageName, PackageManager.PackageInfoFlags.of(0))
-//                        packageManager.queryBroadcastReceivers(
+                    return packageManager.queryIntentServices(intent, 0)
+
+//                    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+//                        //packageManager.getPackageInfo(packageName, PackageManager.PackageInfoFlags.of(0))
+////                        packageManager.queryBroadcastReceivers(
+////                            intent, PackageManager.ResolveInfoFlags.of(0))
+//                        packageManager.queryIntentServices(
 //                            intent, PackageManager.ResolveInfoFlags.of(0))
-                        packageManager.queryIntentServices(
-                            intent, PackageManager.ResolveInfoFlags.of(0))
-                    } else {
-                        //packageManager.getPackageInfo(packageName, 0)
-                        packageManager.queryIntentServices(intent, 0)
-                    }
+//                    } else {
+//                        //packageManager.getPackageInfo(packageName, 0)
+//                        packageManager.queryIntentServices(intent, 0)
+//                    }
                 }
 
                 getPackageInfo()
